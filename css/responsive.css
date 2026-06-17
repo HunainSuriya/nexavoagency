@@ -428,3 +428,90 @@ html, body {
         -webkit-text-fill-color: black;
     }
 }
+/* ===== FIX EXTRA SCROLLER ===== */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* Also fix off‑canvas menu – use transform instead of left */
+.nav-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;                       /* keep left:0, but move with transform */
+    transform: translateX(-100%);
+    width: 100%;
+    height: calc(100dvh - 70px);
+    background: rgba(13, 27, 42, 0.98);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transition: transform 0.3s ease, visibility 0.3s;
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.nav-menu.active {
+    transform: translateX(0);
+    pointer-events: auto;
+    visibility: visible;
+}
+
+/* ===== FIX TEXT CUTTING ===== */
+.hero-title,
+.hero-desc,
+.section-title,
+.header-content p {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Ensure containers don't clip text */
+.container, .hero-content, .header-content {
+    overflow: visible;
+}
+
+/* ===== FIX NAVBAR – MOBILE LAYOUT ===== */
+@media (max-width: 768px) {
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Option A: Shrink the button – show only icon, hide text */
+    .btn-glow {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+    .btn-glow span {
+        display: none;   /* hide text, keep the arrow icon */
+    }
+
+    /* Option B (if you prefer to hide button completely on very small screens) */
+    /*
+    @media (max-width: 480px) {
+        .btn-glow {
+            display: none;
+        }
+    }
+    */
+
+    .menu-toggle {
+        display: flex;
+        margin-left: auto;   /* push hamburger to the right */
+        flex-shrink: 0;
+    }
+}
+
+/* ===== FIX HAMBURGER POSITION ===== */
+.menu-toggle {
+    z-index: 1001;
+    position: relative;
+}
