@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Nexavo Agency - Our Work</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <style>
+      /* Loading spinner styles */
+      .loading-portfolio {
+        text-align: center;
+        padding: 4rem;
+        grid-column: 1/-1;
+      }
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(37, 99, 235, 0.2);
+        border-top: 3px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* ── Project Detail Modal ── */
+      .project-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.80);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+      .project-modal-overlay.active {
+        display: flex;
+      }
+      .project-modal {
+        background: #0f172a;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        width: 100%;
+        max-width: 780px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        animation: modalSlideIn 0.3s ease;
+      }
+      @keyframes modalSlideIn {
+        from { opacity: 0; transform: translateY(30px) scale(0.97); }
+        to   { opacity: 1; transform: translateY(0)   scale(1);    }
+      }
+      .project-modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: background 0.2s;
+      }
+      .project-modal-close:hover {
+        background: rgba(255,255,255,0.2);
+      }
+      .project-modal-video {
+        width: 100%;
+        border-radius: 20px 20px 0 0;
+        display: block;
+        background: #000;
+        max-height: 400px;
+        object-fit: cover;
+      }
+      /* Fallback thumbnail shown when no video */
+      .project-modal-thumb {
+        width: 100%;
+        border-radius: 20px 20px 0 0;
+        display: block;
+        max-height: 320px;
+        object-fit: cover;
+      }
+      .project-modal-body {
+        padding: 1.75rem 2rem 2rem;
+      }
+      .project-modal-body h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0 0 0.75rem;
+      }
+      .project-modal-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.25rem;
+        margin-bottom: 1rem;
+      }
+      .project-modal-meta span {
+        font-size: 0.85rem;
+        color: #94a3b8;
+      }
+      .project-modal-meta span strong {
+        color: #cbd5e1;
+      }
+      .project-modal-desc {
+        font-size: 0.95rem;
+        color: #94a3b8;
+        line-height: 1.7;
+        margin-bottom: 1.25rem;
+      }
+      .project-modal-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .project-modal-tech span {
+        background: rgba(79,70,229,0.15);
+        color: #818cf8;
+        border: 1px solid rgba(79,70,229,0.3);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+      @media (max-width: 600px) {
+        .project-modal-body { padding: 1.25rem; }
+        .project-modal-body h2 { font-size: 1.2rem; }
+        .project-modal-video,
+        .project-modal-thumb { border-radius: 16px 16px 0 0; }
+        .project-modal { border-radius: 16px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <img style="border-radius: 25px;"
+            src="./assets/images/logo main.png"
+            alt="Nexavo"
+            class="logo-img"
+          />
+          <span class="logo-text">NEXAVO</span>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="portfolio.html" class="nav-link active">Portfolio</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="contact.html" class="btn-glow"
+            >Need Service <i class="fas fa-arrow-right"></i
+          ></a>
+          <div class="menu-toggle"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="page-header">
+      <div class="container">
+        <div class="header-content" data-aos="fade-up">
+          <span class="section-subtitle">Our Work</span>
+          <h1 class="section-title">
+            Featured <span class="gradient-text">Projects</span>
+          </h1>
+          <p>Explore our portfolio of successful deliveries</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Filter Bar -->
+      <div class="portfolio-filter-bar" data-aos="fade-up">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="fullstack">Fullstack</button>
+          <button class="filter-btn" data-filter="wordpress">WordPress</button>
+          <button class="filter-btn" data-filter="framer">Framer</button>
+          <button class="filter-btn" data-filter="desktop">Desktop</button>
+          <button class="filter-btn" data-filter="erpnext">ERPNext</button>
+        </div>
+        <input
+          type="text"
+          id="searchProjects"
+          placeholder="🔍 Search projects..."
+        />
+      </div>
+
+      <!-- Portfolio Stats -->
+      <div class="portfolio-stats" id="portfolioStats" data-aos="fade-up">
+        <span id="projectCount">0</span> amazing projects delivered
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div id="portfolioGridContainer" class="portfolio-grid">
+        <div class="loading-portfolio">
+          <div class="loading-spinner"></div>
+          <p>Loading portfolio...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Project Detail Modal ── -->
+    <div class="project-modal-overlay" id="projectDetailModal">
+      <div class="project-modal" id="projectModalInner">
+        <button class="project-modal-close" id="projectModalClose" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div id="projectModalMedia"><!-- video or thumbnail injected here --></div>
+        <div class="project-modal-body" id="projectModalBody"><!-- content injected here --></div>
+      </div>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+      <a
+        href="https://wa.me/923253001794?text=Hello%20Nexavo%20Agency%2C%20I%20would%20like%20to%20discuss%20a%20project"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <span class="whatsapp-tooltip">Chat with us on WhatsApp</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-logo">
+              <img style="border-radius: 25px;" src="./assets/images/logo main.png" alt="Nexavo" />
+              <span>We Are NEXAVO</span>
+            </div>
+            <p>
+              Digital innovation agency delivering exceptional software
+              solutions worldwide.
+            </p>
+            <div class="footer-social">
+              <a href="https://www.facebook.com/profile.php?id=61575455441283"><i class="fab fa-facebook"></i></a>
+              <a href="https://www.linkedin.com/in/nexavo-agency-209397402/"><i class="fab fa-linkedin"></i></a>
+              <a href="https://x.com/huzaifasuriya"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/nexavoagency?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="portfolio.html">Portfolio</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="./portfolio.html">Fullstack Web</a></li>
+              <li><a href="./portfolio.html">WordPress</a></li>
+              <li><a href="./portfolio.html">ERPNext</a></li>
+              <li><a href="./portfolio.html">Desktop Apps</a></li>
+              <li><a href="./portfolio.html">UI/UX Design</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Contact Info</h4>
+            <ul class="contact-info">
+              <li><i class="fas fa-envelope"></i> nexavoagency@gmail.com</li>
+              <li><i class="fas fa-phone"></i> +92 325 3001794</li>
+              <li>
+                <i class="fas fa-map-marker-alt"></i> Karachi, Pakistan / Remote supported
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Nexavo Agency. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#"></a>
+            <a href="#"></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+
+    <!-- Portfolio View-Only Script -->
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+      });
+
+      // ── Portfolio Data ──────────────────────────────────────────────────────
+      let portfolioProjects = [
+        {
+          id: 1,
+          title: "School Management System",
+          thumbnail: "assets/images/thumnail Sms System.png",
+          video: "assets/videos/SMS System.mp4",
+          description:
+            "Comprehensive School Management System featuring student registration, fee management, attendance tracking, class management, academic reports, and administrative dashboards.",
+          technologies: ["HTML", "CSS", "JavaScript", "Electron", "SQL Lite"],
+          category: "Desktop",
+          client: "The Country School",
+          date: "2024",
+        },
+        {
+          id: 2,
+          title: "Gym Management System",
+          thumbnail: "assets/images/gym.png",
+          video: "assets/videos/gym management system.mp4",
+          description:
+            "Comprehensive Gym Management System featuring members registration, fee management, attendance tracking,and administrative dashboards.",
+          technologies: ["HTML", "CSS", "JavaScript", "Electron", "SQL Lite"],
+          category: "Desktop",
+          client: "Aesthetic Gym",
+          date: "2026",
+        },
+        {
+          id: 3,
+          title: "Haji Ali Kitchen Catering",
+          thumbnail: "assets/images/hak.png",
+          video: "assets/videos/hak.mp4",
+          description:
+            "This project is for catering that made by nexavo for an Haji ali Kitchen and that located in karachi gulshan e iqbal this is example of an brilliant taste ",
+          technologies: ["HTML", "CSS", "JavaScript", "PHP", "SQL Lite","Fire Database"],
+          category: "Fullstack",
+          client: "Aesthetic",
+          date: "2024",
+        },
+      ];
+
+      // ── Render Portfolio Grid ───────────────────────────────────────────────
+      function renderPortfolio(filterCategory = "all", searchTerm = "") {
+        const container = document.getElementById("portfolioGridContainer");
+        if (!container) return;
+
+        let filteredProjects = [...portfolioProjects];
+
+        if (filterCategory !== "all") {
+          filteredProjects = filteredProjects.filter(
+            (p) => p.category === filterCategory
+          );
+        }
+
+        if (searchTerm) {
+          const term = searchTerm.toLowerCase();
+          filteredProjects = filteredProjects.filter(
+            (p) =>
+              p.title.toLowerCase().includes(term) ||
+              p.description.toLowerCase().includes(term) ||
+              p.technologies.some((tech) =>
+                tech.toLowerCase().includes(term)
+              ) ||
+              p.client.toLowerCase().includes(term)
+          );
+        }
+
+        const projectCount = document.getElementById("projectCount");
+        if (projectCount) {
+          projectCount.textContent = filteredProjects.length;
+        }
+
+        if (filteredProjects.length === 0) {
+          container.innerHTML = `
+            <div class="empty-portfolio">
+              <i class="fas fa-folder-open"></i>
+              <h3>No Projects Found</h3>
+              <p>Try adjusting your search or filter criteria</p>
+            </div>
+          `;
+          return;
+        }
+
+        function getCategoryBadge(category) {
+          const badges = {
+            fullstack: "🚀 Fullstack",
+            wordpress: "📝 WordPress",
+            framer: "🎨 Framer",
+            desktop: "💻 Desktop App",
+            erpnext: "📊 ERPNext",
+          };
+          return badges[category] || "📁 Project";
+        }
+
+        /*
+         * Card thumbnail: for projects that have a `video` but no real
+         * thumbnail file yet, we show a styled placeholder with a play icon.
+         * Once sms-thumbnail.png is placed in assets/images/ the real image
+         * will appear automatically.
+         */
+        container.innerHTML = filteredProjects
+          .map(
+            (project) => `
+          <div class="portfolio-card" data-aos="fade-up">
+            <div class="portfolio-image">
+              <img
+                src="${escapeHtml(project.thumbnail)}"
+                alt="${escapeHtml(project.title)}"
+                onerror="this.src='https://placehold.co/600x400/1E293B/4F46E5?text=${encodeURIComponent(project.title)}'"
+              >
+              ${project.video ? `<div class="portfolio-video-badge"><i class="fas fa-play-circle"></i></div>` : ""}
+              <div class="portfolio-overlay">
+                <button class="portfolio-view-btn" onclick="viewProject(${project.id})">
+                  <i class="fas fa-eye"></i> View Details
+                </button>
+              </div>
+            </div>
+            <div class="portfolio-content">
+              <span class="portfolio-category">${getCategoryBadge(project.category)}</span>
+              <h3>${escapeHtml(project.title)}</h3>
+              <p>${escapeHtml(project.description.substring(0, 120))}${project.description.length > 120 ? "..." : ""}</p>
+              <div class="portfolio-tech">
+                ${project.technologies.map((tech) => `<span>${escapeHtml(tech)}</span>`).join("")}
+              </div>
+              <div class="portfolio-meta">
+                <span><i class="far fa-calendar-alt"></i> ${project.date}</span>
+                <span><i class="far fa-building"></i> ${escapeHtml(project.client)}</span>
+              </div>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+
+        if (typeof AOS !== "undefined") {
+          AOS.refresh();
+        }
+      }
+
+      // ── View Project Details (modal with video support) ─────────────────────
+      window.viewProject = function (id) {
+        const project = portfolioProjects.find((p) => p.id === id);
+        if (!project) return;
+
+        const mediaEl = document.getElementById("projectModalMedia");
+        const bodyEl  = document.getElementById("projectModalBody");
+
+        // Media section: prefer video, fall back to thumbnail image
+        if (project.video) {
+          mediaEl.innerHTML = `
+            <video
+              class="project-modal-video"
+              controls
+              preload="metadata"
+              poster="${escapeHtml(project.thumbnail)}"
+            >
+              <source src="${escapeHtml(project.video)}" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          `;
+        } else {
+          mediaEl.innerHTML = `
+            <img
+              class="project-modal-thumb"
+              src="${escapeHtml(project.thumbnail)}"
+              alt="${escapeHtml(project.title)}"
+              onerror="this.src='https://placehold.co/780x400/1E293B/4F46E5?text=${encodeURIComponent(project.title)}'"
+            >
+          `;
+        }
+
+        // Body section
+        bodyEl.innerHTML = `
+          <h2>${escapeHtml(project.title)}</h2>
+          <div class="project-modal-meta">
+            <span><strong>Client:</strong> ${escapeHtml(project.client)}</span>
+            <span><strong>Year:</strong> ${project.date}</span>
+            <span><strong>Category:</strong> ${escapeHtml(project.category.charAt(0).toUpperCase() + project.category.slice(1))}</span>
+          </div>
+          <p class="project-modal-desc">${escapeHtml(project.description)}</p>
+          <div class="project-modal-tech">
+            ${project.technologies.map((t) => `<span>${escapeHtml(t)}</span>`).join("")}
+          </div>
+        `;
+
+        // Show modal
+        document.getElementById("projectDetailModal").classList.add("active");
+        document.body.style.overflow = "hidden";
+      };
+
+      // ── Close modal helper ──────────────────────────────────────────────────
+      function closeProjectModal() {
+        const overlay = document.getElementById("projectDetailModal");
+        overlay.classList.remove("active");
+        document.body.style.overflow = "";
+
+        // Pause/reset any playing video so audio doesn't continue
+        const video = overlay.querySelector("video");
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      }
+
+      // ── Escape HTML ─────────────────────────────────────────────────────────
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      // ── Event Listeners ─────────────────────────────────────────────────────
+      function setupEventListeners() {
+        // Filter buttons
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        filterBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            filterBtns.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const category = btn.getAttribute("data-filter");
+            const searchTerm =
+              document.getElementById("searchProjects")?.value || "";
+            renderPortfolio(category, searchTerm);
+          });
+        });
+
+        // Search input
+        const searchInput = document.getElementById("searchProjects");
+        if (searchInput) {
+          searchInput.addEventListener("input", (e) => {
+            const activeFilter =
+              document
+                .querySelector(".filter-btn.active")
+                ?.getAttribute("data-filter") || "all";
+            renderPortfolio(activeFilter, e.target.value);
+          });
+        }
+
+        // Modal close button
+        document.getElementById("projectModalClose").addEventListener("click", closeProjectModal);
+
+        // Click outside modal inner box to close
+        document.getElementById("projectDetailModal").addEventListener("click", (e) => {
+          if (e.target === document.getElementById("projectDetailModal")) {
+            closeProjectModal();
+          }
+        });
+
+        // Keyboard ESC to close
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeProjectModal();
+        });
+      }
+
+      // ── Init ────────────────────────────────────────────────────────────────
+      document.addEventListener("DOMContentLoaded", () => {
+        renderPortfolio();
+        setupEventListeners();
+      });
+    </script>
+  </body>
+</html>
