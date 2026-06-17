@@ -1,9 +1,10 @@
 /* ============================================
-   NEXAVO AGENCY - IMPROVED RESPONSIVE DESIGN
-   Mobile First, Tablet, Desktop Breakpoints
+   NEXAVO AGENCY - FULLY FIXED RESPONSIVE CSS
+   Includes: extra scroller, text cutting,
+   navbar button/hamburger, story section, etc.
    ============================================ */
 
-/* Prevent horizontal scroll globally */
+/* ---------- GLOBAL FIXES ---------- */
 html, body {
     overflow-x: hidden !important;
     width: 100%;
@@ -17,32 +18,32 @@ html, body {
     max-width: 1400px;
 }
 
-/* Mobile Styles (default) */
+/* ---------- MOBILE STYLES (up to 768px) ---------- */
 @media (max-width: 768px) {
-    /* Prevent horizontal scroll from off-screen nav */
     body {
         overflow-x: hidden !important;
         cursor: auto;
-        position: relative;
     }
 
-    /* Navigation */
+    /* ---------- NAVIGATION ---------- */
     .menu-toggle {
         display: flex;
     }
 
+    /* Off‑canvas menu using transform (prevents layout shifts) */
     .nav-menu {
         position: fixed;
         top: 70px;
-        left: -100%;
+        left: 0;
+        transform: translateX(-100%);
         width: 100%;
         height: calc(100dvh - 70px);
-        background: rgba(13, 27, 42, 0.98);
+        background: rgba(20, 20, 30, 0.97);
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 2rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.3s ease, visibility 0.3s;
         backdrop-filter: blur(20px);
         z-index: 999;
         pointer-events: none;
@@ -50,12 +51,36 @@ html, body {
     }
 
     .nav-menu.active {
-        left: 0;
+        transform: translateX(0);
         pointer-events: auto;
         visibility: visible;
     }
 
-    /* Hero Section */
+    /* Navbar actions (button + hamburger) */
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Hide button text, keep only the arrow icon */
+    .btn-glow {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+    .btn-glow span {
+        display: none;
+    }
+
+    /* Hamburger alignment */
+    .menu-toggle {
+        margin-left: auto;
+        flex-shrink: 0;
+        z-index: 1001;
+    }
+
+    /* ---------- HERO SECTION ---------- */
     .hero .container {
         grid-template-columns: 1fr;
         text-align: center;
@@ -63,81 +88,67 @@ html, body {
     }
 
     .hero-title {
-        font-size: clamp(2rem, 8vw, 3.5rem);
-        line-height: 1.2;
+        font-size: 2.5rem;
+        white-space: normal !important;
+        word-break: break-word;
     }
 
     .hero-desc {
         max-width: 560px;
         width: 100%;
-        margin: 0 auto 2rem;
-        font-size: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+        white-space: normal !important;
+        word-break: break-word;
     }
 
     .hero-buttons {
         justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-buttons .btn-primary,
-    .hero-buttons .btn-outline {
-        width: 100%;
-        max-width: 300px;
-        justify-content: center;
+        flex-wrap: wrap;
     }
 
     .hero-stats {
         justify-content: center;
-        gap: 2rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
     }
 
     .hero-visual {
         height: 300px;
-        margin-top: 2rem;
     }
 
     .floating-card {
         padding: 8px 16px;
         font-size: 0.8rem;
     }
-
     .floating-card i {
         font-size: 1rem;
     }
 
-    /* Section Titles */
+    /* ---------- SECTION TITLES ---------- */
     .section-title {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        font-size: 2rem;
+        white-space: normal !important;
+        word-break: break-word;
+    }
+    .header-content p {
+        white-space: normal !important;
+        word-break: break-word;
     }
 
-    /* Services Grid */
+    /* ---------- SERVICES & PARTNERS GRIDS ---------- */
     .services-grid,
     .services-grid-detailed {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
     }
 
-    .service-card,
-    .service-detailed-card {
-        padding: 1.5rem;
-    }
-
-    /* Partners Grid */
-    .partners-grid,
-    .team-grid {
+    .partners-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
     }
 
-    /* Portfolio Grid */
+    /* ---------- PORTFOLIO ---------- */
     .portfolio-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .portfolio-card {
-        margin: 0 1rem;
     }
 
     .portfolio-filter-bar {
@@ -145,34 +156,86 @@ html, body {
         align-items: stretch;
         border-radius: 30px;
         padding: 1.2rem;
-        margin: 1rem;
     }
 
     .filter-buttons {
         justify-content: center;
-        flex-wrap: wrap;
     }
 
     #searchProjects {
         width: 100%;
     }
 
-    /* Story Section */
+    /* ---------- STORY SECTION (About Page) ---------- */
     .story-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: 1fr !important;   /* override any grid remnants */
         gap: 2rem;
-        text-align: center;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .story-content {
+        width: 100% !important;
+        overflow: visible !important;
+        word-break: break-word;
+        padding: 0;
     }
 
     .story-content h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        white-space: normal !important;
+    }
+
+    .story-content p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        white-space: normal !important;
+        word-wrap: break-word;
     }
 
     .story-stats {
-        justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 1rem;
     }
 
-    /* Contact Grid */
+    .story-stats div {
+        flex: 0 0 auto;
+        min-width: 80px;
+    }
+
+    .story-image {
+        width: 100% !important;
+        max-width: 100%;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+
+    .story-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* ---------- PRICING SECTION ---------- */
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    /* ---------- VALUES GRID ---------- */
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ---------- PROCESS STEPS ---------- */
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+
+    /* ---------- CONTACT ---------- */
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -187,7 +250,7 @@ html, body {
         grid-template-columns: 1fr;
     }
 
-    /* Footer */
+    /* ---------- FOOTER ---------- */
     .footer-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -200,11 +263,6 @@ html, body {
 
     .footer-social {
         justify-content: center;
-    }
-
-    .footer-col h4::after {
-        left: 50%;
-        transform: translateX(-50%);
     }
 
     .contact-info li {
@@ -220,31 +278,19 @@ html, body {
         justify-content: center;
     }
 
-    /* CTA */
+    /* ---------- CTA ---------- */
     .cta-content h2 {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        font-size: 2rem;
     }
 
-    /* Custom Cursor - disable on mobile */
+    /* ---------- MISC ---------- */
     .custom-cursor,
     .custom-cursor-follower {
         display: none !important;
     }
 
-    /* Pricing Grid */
-    .pricing-grid {
-        grid-template-columns: 1fr;
-        padding: 0 1rem;
-    }
-
-    /* Values Grid */
-    .values-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* Process Steps */
-    .process-steps {
-        grid-template-columns: 1fr;
+    * {
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Modal adjustments */
@@ -252,27 +298,20 @@ html, body {
         margin: 1rem;
         max-height: 85vh;
     }
-
     .project-modal-body {
         padding: 1.25rem;
     }
-
     .project-modal-body h2 {
         font-size: 1.2rem;
     }
 
-    /* Smooth scrolling for iOS */
-    * {
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Prevent text zoom on iOS */
+    /* Prevent iOS zoom on form fields */
     input, textarea, select {
         font-size: 16px !important;
     }
 }
 
-/* Small Mobile Styles */
+/* ---------- SMALL MOBILE (up to 480px) ---------- */
 @media (max-width: 480px) {
     .hero-title {
         font-size: 1.8rem;
@@ -333,6 +372,14 @@ html, body {
         font-size: 1.6rem;
     }
 
+    .story-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .story-stats {
+        justify-content: center;
+    }
+
     .portfolio-card {
         margin: 0 0.5rem;
     }
@@ -350,18 +397,10 @@ html, body {
     }
 }
 
-/* Tablet Styles */
+/* ---------- TABLET (768px to 1024px) ---------- */
 @media (min-width: 768px) and (max-width: 1024px) {
     .hero-title {
         font-size: 3rem;
-    }
-
-    .hero .container {
-        gap: 2rem;
-    }
-
-    .hero-visual {
-        height: 400px;
     }
 
     .services-grid,
@@ -391,7 +430,7 @@ html, body {
     }
 }
 
-/* Desktop Large */
+/* ---------- DESKTOP LARGE (1400px+) ---------- */
 @media (min-width: 1400px) {
     .container {
         max-width: 1400px;
@@ -402,7 +441,7 @@ html, body {
     }
 }
 
-/* Print Styles */
+/* ---------- PRINT STYLES ---------- */
 @media print {
     .navbar,
     .custom-cursor,
@@ -427,91 +466,4 @@ html, body {
         background: none;
         -webkit-text-fill-color: black;
     }
-}
-/* ===== FIX EXTRA SCROLLER ===== */
-html, body {
-    overflow-x: hidden;
-    width: 100%;
-    max-width: 100vw;
-}
-
-/* Also fix off‑canvas menu – use transform instead of left */
-.nav-menu {
-    position: fixed;
-    top: 70px;
-    left: 0;                       /* keep left:0, but move with transform */
-    transform: translateX(-100%);
-    width: 100%;
-    height: calc(100dvh - 70px);
-    background: rgba(13, 27, 42, 0.98);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    transition: transform 0.3s ease, visibility 0.3s;
-    backdrop-filter: blur(20px);
-    z-index: 999;
-    pointer-events: none;
-    visibility: hidden;
-}
-
-.nav-menu.active {
-    transform: translateX(0);
-    pointer-events: auto;
-    visibility: visible;
-}
-
-/* ===== FIX TEXT CUTTING ===== */
-.hero-title,
-.hero-desc,
-.section-title,
-.header-content p {
-    white-space: normal !important;
-    word-break: break-word;
-    overflow-wrap: break-word;
-}
-
-/* Ensure containers don't clip text */
-.container, .hero-content, .header-content {
-    overflow: visible;
-}
-
-/* ===== FIX NAVBAR – MOBILE LAYOUT ===== */
-@media (max-width: 768px) {
-    .nav-actions {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    /* Option A: Shrink the button – show only icon, hide text */
-    .btn-glow {
-        padding: 8px 12px;
-        font-size: 0.8rem;
-        white-space: nowrap;
-    }
-    .btn-glow span {
-        display: none;   /* hide text, keep the arrow icon */
-    }
-
-    /* Option B (if you prefer to hide button completely on very small screens) */
-    /*
-    @media (max-width: 480px) {
-        .btn-glow {
-            display: none;
-        }
-    }
-    */
-
-    .menu-toggle {
-        display: flex;
-        margin-left: auto;   /* push hamburger to the right */
-        flex-shrink: 0;
-    }
-}
-
-/* ===== FIX HAMBURGER POSITION ===== */
-.menu-toggle {
-    z-index: 1001;
-    position: relative;
 }
