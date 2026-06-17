@@ -29,8 +29,8 @@ function loadProjectsFromStorage() {
         description:
           "Complete School Management System with student records, fee management, attendance tracking, and reporting.",
         technologies: ["React", "Node.js", "MySQL"],
-        category: "webapp",
-        client: "Personal Project",
+        category: "Fullstack",
+        client: "Fullstack",
         date: "2025",
       },
       {

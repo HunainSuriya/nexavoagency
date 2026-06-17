@@ -206,9 +206,8 @@
           <button class="filter-btn active" data-filter="all">All Projects</button>
           <button class="filter-btn" data-filter="fullstack">Fullstack</button>
           <button class="filter-btn" data-filter="wordpress">WordPress</button>
-          <button class="filter-btn" data-filter="framer">Framer</button>
           <button class="filter-btn" data-filter="desktop">Desktop</button>
-          <button class="filter-btn" data-filter="erpnext">ERPNext</button>
+          
         </div>
         <input
           type="text"
@@ -370,6 +369,18 @@
           client: "Aesthetic",
           date: "2024",
         },
+        {
+          id: 4,
+          title: "E Commerce Mockup",
+          thumbnail: "assets/images/ecommerce.png",
+          video: "assets/videos/ecommerce.mp4",
+          description:
+            "The mockup E commerce is a minimalist, luxury e-commerce design for a high-end apparel brand named NEXAVO. It blends a dark, atmospheric retail background with elegant typography, crisp navigation, and clear call-to-action buttons to create a sophisticated, highly engaging user experience.",
+          technologies: ["HTML", "CSS", "JavaScript", "PHP", "SQL Lite","Fire Database"],
+          category: "Fullstack",
+          client: "Aesthetic",
+          date: "2026",
+        },
       ];
 
       // ── Render Portfolio Grid ───────────────────────────────────────────────
@@ -381,7 +392,7 @@
 
         if (filterCategory !== "all") {
           filteredProjects = filteredProjects.filter(
-            (p) => p.category === filterCategory
+            (p) => p.category.toLowerCase() === filterCategory.toLowerCase()
           );
         }
 
@@ -422,7 +433,7 @@
             desktop: "💻 Desktop App",
             erpnext: "📊 ERPNext",
           };
-          return badges[category] || "📁 Project";
+          return badges[(category || "").toLowerCase()] || "📁 Project";
         }
 
         /*
