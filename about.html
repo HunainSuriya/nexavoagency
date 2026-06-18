@@ -20,39 +20,11 @@
     <link rel="stylesheet" href="css/responsive.css" />
 
     <style>
-      /* Simple cursor - override any custom cursor styles */
-      .story-section {
-  overflow: hidden;
-}
-
-.story-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 3rem;
-  align-items: center;
-}
-
-.story-image {
-  position: relative;
-  width: 100%;
-  height: auto !important;        /* Remove fixed height */
-  max-height: 600px;
-  overflow: hidden;
-  border-radius: 16px;
-}
-
-.story-image video {
-  width: 100%;
-  height: auto !important;        /* Let video define its own height */
-  max-height: 600px;
-  object-fit: contain;            /* Changed from cover to contain — no cutting */
-  border-radius: 16px;
-  display: block;
-}
       .custom-cursor,
       .custom-cursor-follower {
         display: none !important;
       }
+
       a,
       button,
       .service-card,
@@ -67,14 +39,53 @@
         cursor: pointer !important;
       }
 
-      /* Pricing Section Styles - Greenish Background */
+      /* ── Story Section ── */
+      .story-section {
+        overflow-x: clip;
+      }
+
+      .story-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .story-image {
+        position: relative;
+        width: 100%;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .story-image video {
+        width: 100%;
+        height: auto;
+        max-height: 520px;
+        object-fit: cover;
+        border-radius: 16px;
+        display: block;
+      }
+
+      @media (max-width: 768px) {
+        .story-grid {
+          grid-template-columns: 1fr !important;
+          gap: 2rem;
+        }
+
+        .story-image video {
+          max-height: 280px;
+        }
+      }
+
+      /* ── Pricing Section ── */
       .pricing-section {
         padding: 100px 0;
         background: linear-gradient(135deg, #0d2a20 0%, #1a4a3a 100%);
         position: relative;
+        overflow-x: clip;
       }
 
-      /* Optional: Add subtle pattern overlay */
       .pricing-section::before {
         content: "";
         position: absolute;
@@ -89,15 +100,13 @@
 
       .pricing-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 2rem;
         margin-top: 3rem;
       }
 
-      /* Card: White Background with Green Text */
       .pricing-card {
         background: var(--white);
-        backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 28px;
         padding: 2rem;
@@ -115,7 +124,6 @@
 
       .pricing-card.popular {
         border: 2px solid #f59e0b;
-        position: relative;
         background: linear-gradient(135deg, #ffffff 0%, #fef9e6 100%);
       }
 
@@ -169,20 +177,16 @@
         align-items: center;
         gap: 10px;
         border-bottom: 1px solid rgba(13, 42, 32, 0.08);
+        font-size: 0.9rem;
       }
 
       .pricing-features li i {
         width: 20px;
-        color: #1a4a3a;
+        flex-shrink: 0;
       }
 
-      .pricing-features li i.fa-check-circle {
-        color: #10b981;
-      }
-
-      .pricing-features li i.fa-times-circle {
-        color: #ef4444;
-      }
+      .pricing-features li i.fa-check-circle { color: #10b981; }
+      .pricing-features li i.fa-times-circle { color: #ef4444; }
 
       .pricing-footer {
         text-align: center;
@@ -197,6 +201,7 @@
         border-radius: 50px;
         color: #1a4a3a;
         font-weight: 600;
+        font-size: 1rem;
         transition: var(--transition-base);
         cursor: pointer;
       }
@@ -230,11 +235,27 @@
         margin-right: 0.3rem;
       }
 
-     
+      @media (max-width: 768px) {
+        .pricing-section {
+          padding: 60px 0;
+        }
+
+        .pricing-grid {
+          grid-template-columns: 1fr;
+          padding: 0;
+        }
+
+        .pricing-header h3 {
+          font-size: 1.5rem;
+        }
+
+        .price {
+          font-size: 2rem;
+        }
+      }
     </style>
   </head>
   <body>
-    <!-- REMOVED: custom cursor divs -->
 
     <nav class="navbar">
       <div class="nav-container">
@@ -255,8 +276,8 @@
         </ul>
         <div class="nav-actions">
           <a href="contact.html" class="btn-glow">
-    <span>Need Service</span> <i class="fas fa-arrow-right"></i>
-</a>
+            <span>Need Service</span> <i class="fas fa-arrow-right"></i>
+          </a>
           <div class="menu-toggle"><span></span><span></span><span></span></div>
         </div>
       </div>
@@ -269,10 +290,7 @@
           <h1 class="section-title">
             Crafting Digital <span class="gradient-text">Excellence</span>
           </h1>
-          <p>
-            4 partners, 1 vision — delivering world-class software solutions
-            since 2024
-          </p>
+          <p>4 partners, 1 vision — delivering world-class software solutions since 2024</p>
         </div>
       </div>
     </section>
@@ -302,13 +320,12 @@
           </div>
           <div class="story-image" data-aos="fade-left">
             <div class="image-glow"></div>
-            <video src="./assets/videos/section.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover; border-radius:16px; display:block;"></video>
+            <video src="./assets/videos/section.mp4" autoplay loop muted playsinline></video>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PRICING SECTION -->
     <section class="pricing-section">
       <div class="container">
         <div class="section-header" data-aos="fade-up">
@@ -320,122 +337,64 @@
         </div>
 
         <div class="pricing-grid">
-          <!-- Basic Plan -->
           <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
             <div class="pricing-header">
               <h3>Basic</h3>
               <div class="price">PKR 45,000 <span>/ project</span></div>
             </div>
             <ul class="pricing-features">
-              <li>
-                <i class="fas fa-check-circle"></i> Simple Website (Landing /2-3
-                Pages)
-              </li>
-              <li>
-                <i class="fas fa-check-circle"></i> 2 Designed Posts
-              </li>
-              <li>
-                <i class="fas fa-check-circle"></i> Mobile Responsive Design
-              </li>
+              <li><i class="fas fa-check-circle"></i> Simple Website (Landing / 2-3 Pages)</li>
+              <li><i class="fas fa-check-circle"></i> 2 Designed Posts</li>
+              <li><i class="fas fa-check-circle"></i> Mobile Responsive Design</li>
               <li><i class="fas fa-check-circle"></i> Basic UI Layout</li>
-              <li>
-                <i class="fas fa-check-circle"></i> Free Consultation (10 Days)
-              </li>
+              <li><i class="fas fa-check-circle"></i> Free Consultation (10 Days)</li>
               <li><i class="fas fa-check-circle"></i> 3-5 Days Delivery</li>
               <li><i class="fas fa-times-circle"></i> Social Media Handling</li>
               <li><i class="fas fa-times-circle"></i> Priority Support</li>
             </ul>
             <div class="pricing-footer">
-              <button
-                class="btn-pricing"
-                onclick="location.href = 'contact.html'"
-              >
-                Get Started
-              </button>
+              <button class="btn-pricing" onclick="location.href='contact.html'">Get Started</button>
             </div>
           </div>
 
-          
-          <!-- Advanced Plan - MOST POPULAR -->
-          <div
-            class="pricing-card popular"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
+          <div class="pricing-card popular" data-aos="fade-up" data-aos-delay="200">
             <div class="popular-badge">MOST POPULAR</div>
             <div class="pricing-header">
               <h3>Advanced</h3>
               <div class="price">PKR 74,990 <span>/ project</span></div>
             </div>
             <ul class="pricing-features">
-              <li>
-                <i class="fas fa-check-circle"></i> Multipage Website (4-6
-                Pages)
-              </li>
-              <li>
-                <i class="fas fa-check-circle"></i> 5 Designed Posts
-              </li>
-              <li>
-                <i class="fas fa-check-circle"></i> Mobile Responsive Design
-              </li>
+              <li><i class="fas fa-check-circle"></i> Multipage Website (4-6 Pages)</li>
+              <li><i class="fas fa-check-circle"></i> 5 Designed Posts</li>
+              <li><i class="fas fa-check-circle"></i> Mobile Responsive Design</li>
               <li><i class="fas fa-check-circle"></i> Modern UI/UX Design</li>
-              <li>
-                <i class="fas fa-check-circle"></i> Free Consultation (10 Days)
-              </li>
+              <li><i class="fas fa-check-circle"></i> Free Consultation (10 Days)</li>
               <li><i class="fas fa-check-circle"></i> 5-7 Days Delivery</li>
-              <li>
-                <i class="fas fa-check-circle"></i> Social Media Handling (2
-                Day)
-              </li>
+              <li><i class="fas fa-check-circle"></i> Social Media Handling (2 Days)</li>
               <li><i class="fas fa-times-circle"></i> Priority Support</li>
             </ul>
             <div class="pricing-footer">
-              <button
-                class="btn-pricing"
-                onclick="location.href = 'contact.html'"
-              >
-                Buy Now
-              </button>
+              <button class="btn-pricing" onclick="location.href='contact.html'">Buy Now</button>
             </div>
           </div>
 
-          <!-- Premium Plan -->
           <div class="pricing-card" data-aos="fade-up" data-aos-delay="300">
             <div class="pricing-header">
               <h3>Premium</h3>
               <div class="price">PKR 155,799 <span>/ project</span></div>
             </div>
             <ul class="pricing-features">
-              <li>
-                <i class="fas fa-check-circle"></i> Full Stack Website (Custom)
-              </li>
-              <li>
-                <i class="fas fa-check-circle"></i> 6 Designed Posts
-              </li>
-              <li>
-                <i class="fas fa-check-circle"></i> Mobile Responsive Design
-              </li>
-              <li>
-                <i class="fas fa-check-circle"></i> High-End UI/UX +
-                Optimization
-              </li>
-              <li>
-                <i class="fas fa-check-circle"></i> Free Consultation (15 Days)
-              </li>
+              <li><i class="fas fa-check-circle"></i> Full Stack Website (Custom)</li>
+              <li><i class="fas fa-check-circle"></i> 6 Designed Posts</li>
+              <li><i class="fas fa-check-circle"></i> Mobile Responsive Design</li>
+              <li><i class="fas fa-check-circle"></i> High-End UI/UX + Optimization</li>
+              <li><i class="fas fa-check-circle"></i> Free Consultation (15 Days)</li>
               <li><i class="fas fa-check-circle"></i> 5-7 Days Delivery</li>
-              <li>
-                <i class="fas fa-check-circle"></i> Social Media Handling (10
-                Days)
-              </li>
+              <li><i class="fas fa-check-circle"></i> Social Media Handling (10 Days)</li>
               <li><i class="fas fa-check-circle"></i> Priority Support</li>
             </ul>
             <div class="pricing-footer">
-              <button
-                class="btn-pricing"
-                onclick="location.href = 'contact.html'"
-              >
-                Buy Now
-              </button>
+              <button class="btn-pricing" onclick="location.href='contact.html'">Buy Now</button>
             </div>
           </div>
         </div>
@@ -454,23 +413,16 @@
             What Drives <span class="gradient-text">Us</span>
           </h2>
         </div>
-
         <div class="values-grid">
           <div class="value-card" data-aos="zoom-in" data-aos-delay="100">
             <div class="value-icon"><i class="fas fa-rocket"></i></div>
             <h3>Innovation First</h3>
-            <p>
-              We embrace cutting-edge technologies to deliver future-proof
-              solutions.
-            </p>
+            <p>We embrace cutting-edge technologies to deliver future-proof solutions.</p>
           </div>
           <div class="value-card" data-aos="zoom-in" data-aos-delay="150">
             <div class="value-icon"><i class="fas fa-handshake"></i></div>
             <h3>Client Success</h3>
-            <p>
-              Your success is our success. We're committed to exceeding
-              expectations.
-            </p>
+            <p>Your success is our success. We're committed to exceeding expectations.</p>
           </div>
           <div class="value-card" data-aos="zoom-in" data-aos-delay="200">
             <div class="value-icon"><i class="fas fa-code"></i></div>
@@ -486,7 +438,6 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <div class="footer-grid">
@@ -495,10 +446,7 @@
               <img style="border-radius: 25px;" src="./assets/images/logo main.png" alt="Nexavo" />
               <span>We Are NEXAVO</span>
             </div>
-            <p>
-              Digital innovation agency delivering exceptional software
-              solutions worldwide.
-            </p>
+            <p>Digital innovation agency delivering exceptional software solutions worldwide.</p>
             <div class="footer-social">
               <a href="https://www.facebook.com/profile.php?id=61575455441283"><i class="fab fa-facebook"></i></a>
               <a href="https://www.linkedin.com/in/nexavo-agency-209397402/"><i class="fab fa-linkedin"></i></a>
@@ -506,7 +454,6 @@
               <a href="https://www.instagram.com/nexavoagency?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
             </div>
           </div>
-
           <div class="footer-col">
             <h4>Quick Links</h4>
             <ul>
@@ -517,7 +464,6 @@
               <li><a href="contact.html">Contact</a></li>
             </ul>
           </div>
-
           <div class="footer-col">
             <h4>Services</h4>
             <ul>
@@ -528,19 +474,15 @@
               <li><a href="./portfolio.html">UI/UX Design</a></li>
             </ul>
           </div>
-
           <div class="footer-col">
             <h4>Contact Info</h4>
             <ul class="contact-info">
               <li><i class="fas fa-envelope"></i> nexavoagency@gmail.com</li>
               <li><i class="fas fa-phone"></i> +92 325 3001794</li>
-              <li>
-                <i class="fas fa-map-marker-alt"></i> Karachi, Pakistan / Remote supported
-              </li>
+              <li><i class="fas fa-map-marker-alt"></i> Karachi, Pakistan / Remote supported</li>
             </ul>
           </div>
         </div>
-
         <div class="footer-bottom">
           <p>&copy; 2026 Nexavo Agency. All rights reserved.</p>
           <div class="footer-links">
@@ -550,19 +492,24 @@
         </div>
       </div>
     </footer>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-     <script src="./js/three.min.js"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+      <a href="https://wa.me/923253001794?text=Hello%20Nexavo%20Agency%2C%20I%20would%20like%20to%20discuss%20a%20project"
+         target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <span class="whatsapp-tooltip">Chat with us on WhatsApp</span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="./js/three.min.js"></script>
     <script src="js/three.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
     <script src="js/animations.js"></script>
     <script>
-      // Initialize AOS
-      AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100,
-      });
+      AOS.init({ duration: 800, once: true, offset: 100 });
     </script>
   </body>
 </html>
