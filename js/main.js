@@ -298,22 +298,3 @@ document.addEventListener('DOMContentLoaded', function() {
     
     observer.observe(document.body, { childList: true, subtree: true });
 })();
-menuToggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    navMenu.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-    
-    // Animate hamburger
-    const spans = menuToggle.querySelectorAll('span');
-    if (menuToggle.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-        document.body.style.overflow = 'hidden';
-    } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-        document.body.style.overflow = '';
-    }
-});
